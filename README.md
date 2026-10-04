@@ -87,12 +87,6 @@ cd 培诊系统
 ### 2. 配置接口地址
 
 两个子项目都提供了 `.env.example`。复制为开发环境配置后，填写可用的后端接口地址：
-
-```powershell
-Copy-Item .\admin\.env.example .\admin\.env.development
-Copy-Item .\pzH5\.env.example .\pzH5\.env.development
-```
-
 配置内容：
 
 ```env
