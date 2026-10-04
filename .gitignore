@@ -1,0 +1,29 @@
+﻿# Dependencies
+**/node_modules/
+
+# Build output
+**/dist/
+**/dist-ssr/
+
+# Environment files
+**/.env
+**/.env.*
+!**/.env.example
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+
+# Course materials
+**/02-didi陪诊资料-源码/
+
+# Local notes
+面试准备-陪诊系统.md
