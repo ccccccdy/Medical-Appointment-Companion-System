@@ -1,4 +1,4 @@
-﻿# Dependencies
+# Dependencies
 **/node_modules/
 
 # Build output
@@ -22,8 +22,6 @@ pnpm-debug.log*
 .idea/
 .DS_Store
 
-# Course materials
+# Course materials and private notes
 **/02-didi陪诊资料-源码/
-
-# Local notes
 面试准备-陪诊系统.md
