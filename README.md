@@ -81,7 +81,7 @@
 
 ```bash
 git clone <your-repository-url>
-cd 培诊系统
+cd Medical-Appointment-Companion-System
 ```
 
 ### 2. 配置接口地址
@@ -159,7 +159,3 @@ npm run build --prefix .\admin
 ## 项目来源说明
 
 本项目是在学习和实践基础上完成的 Vue 3 双端项目。页面、组件、请求封装、订单流程、权限菜单和问题修复经过个人开发、调试和整理。公开仓库不包含课程资料目录、依赖目录、构建产物和本地环境配置文件。
-
-## License
-
-本项目仅用于学习和个人作品展示。若要用于商业项目，请先确认接口、图片素材、第三方依赖及相关业务合规性。

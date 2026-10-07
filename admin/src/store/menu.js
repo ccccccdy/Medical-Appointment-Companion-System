@@ -33,10 +33,8 @@ const mutations = {
         if (index > -1) state.selectMenu.splice(index, 1)
     },
     dynamicMenu(state, payload) {
-        // 把后端下发的菜单数据中的 meta.path 映射成真实的懒加载组件
         function routerSet(routers) {
             routers.forEach(route => {
-                // 没有子菜单，说明是最终页面，拼接组件路径
                 if (!route.children) {
                     const url = `../views${route.meta.path}/index.vue`
                     route.component = modules[url] || fallbackView

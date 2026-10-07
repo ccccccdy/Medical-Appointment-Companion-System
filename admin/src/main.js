@@ -11,7 +11,6 @@ try {
   const localData = localStorage.getItem('pz_v3pz')
   const routerList = localData ? JSON.parse(localData).menu.routerList : []
   if (routerList && routerList.length) {
-    // 必须重新执行一次 dynamicMenu：组件（函数）无法被 JSON 持久化，刷新后会丢
     store.commit('dynamicMenu', routerList)
     store.state.menu.routerList.forEach(item => {
       router.addRoute('main', item)

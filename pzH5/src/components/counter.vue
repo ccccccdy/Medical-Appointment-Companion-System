@@ -66,8 +66,6 @@ watch(
   () => props.second,
   (val) => start(val)
 )
-
-// 组件卸载必须清理定时器，否则会持续执行并造成内存泄漏
 onBeforeUnmount(stopTimer)
 </script>
 
