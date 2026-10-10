@@ -142,20 +142,14 @@
     </div>
 </template>
 <script setup>
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import statusBar from '../../components/statusBar.vue' 
 import { computed, getCurrentInstance, onMounted, reactive, ref } from 'vue'
 import Qrcode from 'qrcode'
 
-onMounted(async() => {
-    const { data } = await proxy.$api.h5Companion()
-    console.log(data)
-    Object.assign(createInfo,data.data)
-    console.log(createInfo)
-})
-
 const { proxy } = getCurrentInstance()
 const router = useRouter()
+const route = useRoute()
 const createInfo = reactive({
     companion:[],
     hospitals:[],
@@ -196,7 +190,6 @@ const minDate = ref(new Date())
 const showTimeConfirm = (item) => {
     const dateStr = item.selectedValues.join('-')
     currentDate.value = dateStr
-    console.log(currentDate)
     form.starttime = new Date(dateStr).getTime()
     showStartTime.value = false
 }
@@ -246,7 +239,7 @@ const submit = async () => {
     try {
         submitting.value = true
         const { data:orderRes } = await proxy.$api.createOrder(form)
-        // 后端未返回支付链接时给出提示，而不是把 undefined 丢给二维码组件
+        // 后端未返回支付链接时给出提示
         const payUrl = orderRes.data && orderRes.data.wx_code
         if(!payUrl){
             showNotify({ message: orderRes.message || '订单创建失败，请稍后重试' })
@@ -257,7 +250,23 @@ const submit = async () => {
     } finally {
         submitting.value = false
     }
+
 }
+onMounted(async() => {
+    const { data } = await proxy.$api.h5Companion()
+    Object.assign(createInfo,data.data)
+    const urlId = Number(route.query.id)
+    if (!urlId || isNaN(urlId)) return
+    const targetHospital = data.data.hospitals.find(item => item.id === urlId)
+    if (targetHospital) {
+        form.hospital_id = targetHospital.id
+        form.hospital_name = targetHospital.name
+    } else {
+        //用户该医院不存在
+        showNotify({ message: '该医院不存在或已下线' })
+    }
+})
+
 </script>
 <style lang="less" scoped>
 .container {

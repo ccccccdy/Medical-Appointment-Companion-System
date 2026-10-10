@@ -100,23 +100,11 @@ const orderInfo = {
     out_trade_no: '订单编号'
 }
 
-onMounted(async () => {
-    const { data } = await proxy.$api.orderDetail({ oid: route.query.oid })
-    Object.assign(detailData, data.data)
-    //支付链接可能为空（如已支付完成），为空时不再生成二维码
-    if (data.data.code_url) {
-        Qrcode.toDataURL(data.data.code_url).then((url) => {
-            codeImg.value = url
-        })
-    }
-})
-
 //需要格式化的时间字段
 const timeKeys = ['starttime', 'order_start_time']
 
 const formatData = (key) => {
-    //支持 client.name 这类嵌套字段
-    const value = key.split('.').reduce((obj, prop) => (obj || {})[prop], detailData)
+    const value = key.split('.').reduce((obj, prop) => obj?.[prop], detailData)
     if (timeKeys.includes(key)) {
         return formatTimestamp(value, true)
     }
@@ -139,6 +127,17 @@ const closeCode = () => {
 const goBack = () => {
     router.back()
 }
+
+onMounted(async () => {
+    const { data } = await proxy.$api.orderDetail({ oid: route.query.oid })
+    Object.assign(detailData, data.data)
+    //支付链接可能为空（如已支付完成），为空时不再生成二维码
+    if (data.data.code_url) {
+        Qrcode.toDataURL(data.data.code_url).then((url) => {
+            codeImg.value = url
+        })
+    }
+})
 </script>
 <style lang="less" scoped>
 .container {
